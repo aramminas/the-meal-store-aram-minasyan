@@ -1,0 +1,43 @@
+html,
+body{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex: 0 1 0;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+header {
+    height: 80px;
+    background-color: #232222;
+}
+
+header img {
+    width: 200px;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.meal-title {
+    min-height: 48px;
+}
+
+.desc-text {
+    min-height: 120px;
+}
+
+footer {
+    flex-shrink: 0;
+    color: gray;
+    background-color: #333232;
+}
