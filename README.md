@@ -1,4 +1,7 @@
 # the-meal-store
 
-The Meal API url
-http://www.themealdb.com/api/json/v1/1
+The Meal API site
+https://spoonacular.com/
+
+Api url
+https://api.spoonacular.com

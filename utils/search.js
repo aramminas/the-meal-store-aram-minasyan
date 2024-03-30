@@ -2,20 +2,22 @@ async function getMealByName(mealName) {
   const mealsContainer = document.querySelector(".meals-container");
   const alertSection = document.querySelector(".alert-section");
 
-  const result = await requestApi(null, `?s=${mealName}`);
+  const response = await requestApi(
+    "recipes/complexSearch",
+    `?query=${mealName}`
+  );
 
   mealsContainer.innerHTML = "";
   alertSection.innerHTML = "";
-  if (!result?.meals) {
+  if (!response?.results?.length) {
     const alertSection = document.querySelector(".alert-section");
     alertSection.contains(createAlertBlock("Meal not found!"));
     return;
   }
-
   // set main title
   setMainCategoryTitle(mealName);
   // create meal node and append to list
-  result.meals.forEach((meal) => {
+  response?.results.forEach((meal) => {
     const mealNode = createMealCard(meal);
     mealsContainer.appendChild(mealNode);
   });

@@ -1,9 +1,16 @@
-const API_URL = "http://www.themealdb.com/api/json/v1/1";
+const API_URL = "https://api.spoonacular.com";
+const options = {
+  method: "GET",
+  headers: {
+    "x-api-key": "daae5cc661c148d7876c687e55cf9c95",
+    "Content-Type": "application/json",
+  },
+};
 
 async function requestApi(type = "", query = "") {
   try {
     const queryType = type || "search.php";
-    const response = await fetch(`${API_URL}/${queryType}${query}`);
+    const response = await fetch(`${API_URL}/${queryType}${query}`, options);
 
     return await response.json();
   } catch (error) {

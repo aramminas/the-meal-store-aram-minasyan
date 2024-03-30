@@ -1,13 +1,5 @@
 async function getFavorite(id) {
-  const response = await requestApi("lookup.php", `?i=${id}`);
-
-  const meals = response?.meals;
-
-  if (meals?.length) {
-    return meals[0];
-  }
-
-  return response;
+  return await requestApi("recipes/", `${id}/information`);
 }
 
 async function showFavorites() {

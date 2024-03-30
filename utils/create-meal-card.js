@@ -3,7 +3,7 @@ function createMealCard(meal, favorite = false) {
   const cardCol = document.createElement("div");
   cardCol.classList.add("col-sm-12", "col-md-3");
   if (favorite) {
-    cardCol.classList.add(`favorite-${meal.idMeal}`);
+    cardCol.classList.add(`favorite-${meal.id}`);
   }
   // card container
   const cardDiv = document.createElement("div");
@@ -12,13 +12,13 @@ function createMealCard(meal, favorite = false) {
   // card header
   const cardHeader = document.createElement("div");
   cardHeader.classList.add("card-header");
-  const headerTextNode = document.createTextNode(meal.strArea);
+  const headerTextNode = document.createTextNode(meal.title);
   cardHeader.appendChild(headerTextNode);
 
   // card image
   const cardImg = document.createElement("img");
   cardImg.classList.add("card-img-top");
-  cardImg.setAttribute("src", getImg(meal.strMealThumb));
+  cardImg.setAttribute("src", getImg(meal.image));
   cardImg.setAttribute("alt", "meal picture");
 
   // card body
@@ -27,11 +27,13 @@ function createMealCard(meal, favorite = false) {
   // card Title
   const cardLink = document.createElement("a");
   cardLink.classList.add("text-decoration-none", "text-dark");
-  cardLink.setAttribute("href", `pages/meal.html?id=${meal.idMeal}`);
+  cardLink.setAttribute("href", `pages/meal.html?id=${meal.id}`);
 
   const cardTitle = document.createElement("h5");
   cardTitle.classList.add("card-title", "meal-title");
-  const titleTextNode = document.createTextNode(meal.strMeal);
+  const titleTextNode = document.createTextNode(
+    meal?.creditsText || meal.title
+  );
   cardTitle.appendChild(titleTextNode);
   cardLink.appendChild(cardTitle);
 
@@ -41,18 +43,17 @@ function createMealCard(meal, favorite = false) {
   // cart small
   const cardSmall = document.createElement("small");
   cardSmall.classList.add("text-muted");
-  const smallTextNode = document.createTextNode(meal.strCategory);
+  const smallTextNode = document.createTextNode(meal.sourceName || "");
   cardSmall.appendChild(smallTextNode);
   cardText.appendChild(cardSmall);
 
   // card text (description)
   const cardTextDesc = document.createElement("p");
   cardTextDesc.classList.add("card-text", "desc-text");
-  const descTextNode = document.createTextNode(cutText(meal.strInstructions));
-  cardTextDesc.appendChild(descTextNode);
+  cardTextDesc.insertAdjacentHTML("beforeend", meal.summary || "");
 
   // card button (add)
-  const cardButton = addButton(meal.idMeal, favorite);
+  const cardButton = addButton(meal.id, favorite);
 
   // append child card nodes to 'col'
   cardCol.appendChild(cardDiv);

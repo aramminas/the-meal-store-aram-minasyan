@@ -27,8 +27,9 @@ function cutText(text) {
   return text.length > length ? text.substring(0, length - 3) + "..." : text;
 }
 
-function getImg(img) {
-  return img ? img : "./public/food_default.png";
+function getImg(img, pages = false) {
+  const path = pages ? "../" : "./";
+  return img ? img : `${path}public/food_default.png`;
 }
 
 function setMainCategoryTitle(category) {

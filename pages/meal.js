@@ -1,9 +1,9 @@
 async function getMeal(id) {
-  const response = await requestApi("lookup.php", `?i=${id}`);
+  const response = await requestApi("recipes/", `${id}/information`);
 
-  const meals = response?.meals;
+  const meals = response?.id;
 
-  if (meals?.length) {
+  if (meals?.id) {
     return meals;
   }
 
@@ -13,20 +13,19 @@ async function getMeal(id) {
 async function initMeal() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
-  const meals = await getMeal(id);
+  const meal = await getMeal(id);
 
   const mealsContainer = document.querySelector(".meals-container");
   mealsContainer.innerHTML = "";
 
-  if (meals.error || !meals?.length) {
+  if (meal.error || !meal?.id) {
     const alertSection = document.querySelector(".alert-section");
     alertSection.contains(createAlertBlock("Meal not found!"));
     return;
   }
 
   // get first result
-  const meal = meals[0];
-  setMainCategoryTitle(meal?.strMeal);
+  setMainCategoryTitle(meal.title);
   const mealNode = createSingleMealCard(meal);
   mealsContainer.appendChild(mealNode);
 }

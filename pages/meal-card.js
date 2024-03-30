@@ -15,7 +15,7 @@ function createSingleMealCard(meal) {
   // card image
   const cardImg = document.createElement("img");
   cardImg.classList.add("img-fluid", "rounded-start");
-  cardImg.setAttribute("src", getImg(meal.strMealThumb));
+  cardImg.setAttribute("src", getImg(meal.image, true));
   cardImg.setAttribute("alt", "meal picture");
 
   // append image child nodes
@@ -35,14 +35,13 @@ function createSingleMealCard(meal) {
   // card title
   const cardTitle = document.createElement("h5");
   cardTitle.classList.add("card-title");
-  const titleTextNode = document.createTextNode(meal.strMeal);
+  const titleTextNode = document.createTextNode(meal.title);
   cardTitle.appendChild(titleTextNode);
 
   // card text (description)
   const cardTextDesc = document.createElement("p");
   cardTextDesc.classList.add("card-text", "desc-text");
-  const descTextNode = document.createTextNode(meal.strInstructions);
-  cardTextDesc.appendChild(descTextNode);
+  cardTextDesc.insertAdjacentHTML("beforeend", meal.summary || "");
 
   // card text (category, area)
   const cardCategoryText = document.createElement("p");
@@ -53,32 +52,35 @@ function createSingleMealCard(meal) {
   // cart small
   const cardCategorySmall = document.createElement("small");
   cardCategorySmall.classList.add("text-muted");
-  const smallCategoryTextNode = document.createTextNode(
-    `${meal.strCategory}; ${meal.strArea}`
-  );
+  const smallCategoryTextNode = document.createTextNode(`${meal.sourceName}`);
   cardCategorySmall.appendChild(smallCategoryTextNode);
   cardCategoryText.appendChild(cardCategorySmall);
 
-  // card text tags
-  const cardTagsText = document.createElement("p");
-  cardTagsText.classList.add("card-text");
+  // card text instructions
+  const cardInstructionsText = document.createElement("p");
+  cardInstructionsText.classList.add("card-text");
 
-  // meal tags
-  const cardTagsTitleTextNode = document.createTextNode("Tags: ");
-  cardTagsText.appendChild(cardTagsTitleTextNode);
-  // cart tags small
-  const cardTagsSmall = document.createElement("small");
-  cardTagsSmall.classList.add("text-muted");
-  const smallTagsTextNode = document.createTextNode(meal.strTags);
-  cardTagsSmall.appendChild(smallTagsTextNode);
-  cardTagsText.appendChild(cardTagsSmall);
+  // meal instructions
+  const cardInstructionsTitleTextNode =
+    document.createTextNode("Instructions: ");
+  cardInstructionsText.appendChild(cardInstructionsTitleTextNode);
+  // cart instructions small
+  const cardInstructionsSmall = document.createElement("small");
+  cardInstructionsSmall.classList.add("text-muted");
+  cardInstructionsSmall.insertAdjacentHTML(
+    "beforeend",
+    meal?.instructions || ""
+  );
+  cardInstructionsText.appendChild(cardInstructionsSmall);
+  // cardTextDesc.insertAdjacentHTML("beforeend", meal.summary || "");
 
-  // card youtube link
-  const cardYoutubeLink = document.createElement("a");
-  cardYoutubeLink.classList.add("text-decoration-none", "text-danger");
-  cardYoutubeLink.setAttribute("href", meal.strYoutube);
-  const youtubeTextNode = document.createTextNode("Youtube");
-  cardYoutubeLink.appendChild(youtubeTextNode);
+  // card source link
+  const cardSourceLink = document.createElement("a");
+  cardSourceLink.classList.add("text-decoration-none", "text-info");
+  cardSourceLink.setAttribute("href", meal.sourceUrl);
+  cardSourceLink.setAttribute("target", "_blank");
+  const sourceTextNode = document.createTextNode("Source site");
+  cardSourceLink.appendChild(sourceTextNode);
 
   // card button (add)
   const cardButton = document.createElement("button");
@@ -92,14 +94,14 @@ function createSingleMealCard(meal) {
   );
   const buttonTextNode = document.createTextNode("+ Add to favorites");
   cardButton.appendChild(buttonTextNode);
-  cardButton.addEventListener("click", addToFavorite(meal.idMeal));
+  cardButton.addEventListener("click", addToFavorite(meal.id));
 
   // append meal context child nodes
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(cardTextDesc);
   cardBody.appendChild(cardCategoryText);
-  cardBody.appendChild(cardTagsText);
-  cardBody.appendChild(cardYoutubeLink);
+  cardBody.appendChild(cardInstructionsText);
+  cardBody.appendChild(cardSourceLink);
   cardBody.appendChild(cardButton);
 
   cardColContext.appendChild(cardBody);
