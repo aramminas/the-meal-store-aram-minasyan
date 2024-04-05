@@ -29,6 +29,7 @@ function removeFromFavorites(id) {
     favoriteQuantity.innerHTML = favoritMeals.length;
     if (favoritMeals.length === 0) {
       favoriteMeal.classList.add("d-none");
+      location.href = `index.html`;
     }
     localStorage.setItem("favoritMeals", JSON.stringify(favoritMeals));
   };
