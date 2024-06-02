@@ -1,0 +1,69 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex: 0 1 0;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+header {
+    height: 80px;
+    background-color: #232222;
+}
+
+header img {
+    width: 200px;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.meal-title {
+    min-height: 48px;
+}
+
+.desc-text {
+    min-height: 20px;
+}
+
+footer {
+    flex-shrink: 0;
+    color: gray;
+    background-color: #333232;
+}
+
+@media (max-width: 1480px) {
+    .menu-container {
+        flex-wrap: wrap;
+    }
+
+    .menu-element:first-child {
+        flex: 1 1 100%;
+    }
+
+    .menu-element:nth-child(2) {
+        flex: 14 1 0;
+        margin-bottom: 8px!important;
+    }
+
+    .menu-element:last-child {
+        flex: 2 1 0;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 1080px) {
+    .menu-element:last-child {
+        flex: 3 1 0;
+    }
+}
