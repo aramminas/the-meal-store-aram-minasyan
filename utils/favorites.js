@@ -1,17 +1,38 @@
-function addToFavorite(id) {
+function addToFavorite(id, btn) {
   return function () {
     const favoriteMeal = document.querySelector(".favorite-meal");
     const favoriteQuantity = document.querySelector(".favorite-quantity");
     favoriteMeal.classList.remove("d-none");
 
-    const favoritMeals = JSON.parse(localStorage.getItem("favoritMeals")) || [];
-    if (favoritMeals.indexOf(id) === -1) {
-      favoritMeals.push(id);
+    const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+    if (favoriteMeals.indexOf(id) === -1) {
+      favoriteMeals.push(id);
+      btn.innerHTML = "- Remove from favorites";
+      btn.classList.add("btn-danger");
+      btn.classList.remove("btn-primary");
+      btn.addEventListener("click", removeFavorite(id, btn));
     }
 
-    favoriteQuantity.innerHTML = favoritMeals.length;
-    localStorage.setItem("favoritMeals", JSON.stringify(favoritMeals));
+    favoriteQuantity.innerHTML = favoriteMeals.length || "";
+    localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
   };
+}
+
+function removeFavorite(id, btn){
+  return function (){
+    const favoriteQuantity = document.querySelector(".favorite-quantity");
+    let favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+    if (favoriteMeals.indexOf(id) !== -1) {
+      favoriteMeals = favoriteMeals.filter((favId) => favId != id);
+      btn.innerHTML = "+ Add to favorites";
+      btn.classList.remove("btn-danger");
+      btn.classList.add("btn-primary");
+      btn.addEventListener("click", addToFavorite(id, btn));
+    }
+
+    favoriteQuantity.innerHTML = favoriteMeals.length || "";
+    localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+  }
 }
 
 function removeFromFavorites(id) {
@@ -20,28 +41,28 @@ function removeFromFavorites(id) {
     const favoriteQuantity = document.querySelector(".favorite-quantity");
     const favoriteElement = document.querySelector(`.favorite-${id}`);
 
-    let favoritMeals = JSON.parse(localStorage.getItem("favoritMeals")) || [];
-    if (favoritMeals.indexOf(id) !== -1) {
-      favoritMeals = favoritMeals.filter((favId) => favId != id);
+    let favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+    if (favoriteMeals.indexOf(id) !== -1) {
+      favoriteMeals = favoriteMeals.filter((favId) => favId != id);
       favoriteElement.remove();
     }
 
-    favoriteQuantity.innerHTML = favoritMeals.length;
-    if (favoritMeals.length === 0) {
+    favoriteQuantity.innerHTML = favoriteMeals.length || "";
+    if (favoriteMeals.length === 0) {
       favoriteMeal.classList.add("d-none");
       location.href = `index.html`;
     }
-    localStorage.setItem("favoritMeals", JSON.stringify(favoritMeals));
+    localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
   };
 }
 
 function checkFavorites() {
-  const favoritMeals = JSON.parse(localStorage.getItem("favoritMeals")) || [];
-  if (favoritMeals.length) {
+  const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+  if (favoriteMeals.length) {
     const favoriteMeal = document.querySelector(".favorite-meal");
     const favoriteQuantity = document.querySelector(".favorite-quantity");
 
-    favoriteQuantity.innerHTML = favoritMeals.length;
+    favoriteQuantity.innerHTML = favoriteMeals.length || "";
     favoriteMeal.classList.remove("d-none");
   }
 }

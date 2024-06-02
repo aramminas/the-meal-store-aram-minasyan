@@ -58,7 +58,7 @@ function createCategoryNav(categories) {
       );
     }
 
-    const categoryPath = !id ? "#" : `../index.html?category=${category}`;
+    const categoryPath = !id ? `index.html?category=${category}` : `../index.html?category=${category}`;
     const listTextNode = document.createTextNode(category);
     linkItem.setAttribute("href", categoryPath);
     linkItem.appendChild(listTextNode);

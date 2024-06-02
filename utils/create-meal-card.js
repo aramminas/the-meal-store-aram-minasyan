@@ -1,7 +1,7 @@
 function createMealCard(meal, favorite = false) {
   // card column
   const cardCol = document.createElement("div");
-  cardCol.classList.add("col-sm-12", "col-md-3");
+  cardCol.classList.add("col-sm-6", "col-md-4", "col-lg-3");
   if (favorite) {
     cardCol.classList.add(`favorite-${meal.id}`);
   }
@@ -71,11 +71,23 @@ function createMealCard(meal, favorite = false) {
   return cardCol;
 }
 
-function addButton(id, favorite = false) {
+function addButton(id, isFavorite = false) {
+  let favorite = isFavorite;
+  const isFavoritePage = document.querySelector(".favorite-page");
+
+  const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+  if(favoriteMeals.indexOf(id) !== -1){
+    favorite = true;
+  }
+
   const cardButton = document.createElement("button");
   const btnClass = favorite ? "btn-danger" : "btn-primary";
   const btnText = favorite ? "- Remove from favorites" : "+ Add to favorites";
-  const btnAction = favorite ? removeFromFavorites(id) : addToFavorite(id);
+  const btnAction = favorite
+      ? isFavoritePage
+          ? removeFromFavorites(id)
+          : removeFavorite(id, cardButton)
+      : addToFavorite(id, cardButton);
   cardButton.classList.add("btn", "btn-sm", "btn-block", "w-100", btnClass);
   const buttonTextNode = document.createTextNode(btnText);
   cardButton.appendChild(buttonTextNode);

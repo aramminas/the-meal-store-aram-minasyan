@@ -1,5 +1,5 @@
 html,
-body{
+body {
     margin: 0;
     padding: 0;
 }
@@ -40,4 +40,30 @@ footer {
     flex-shrink: 0;
     color: gray;
     background-color: #333232;
+}
+
+@media (max-width: 1480px) {
+    .menu-container {
+        flex-wrap: wrap;
+    }
+
+    .menu-element:first-child {
+        flex: 1 1 100%;
+    }
+
+    .menu-element:nth-child(2) {
+        flex: 14 1 0;
+        margin-bottom: 8px!important;
+    }
+
+    .menu-element:last-child {
+        flex: 2 1 0;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 1080px) {
+    .menu-element:last-child {
+        flex: 3 1 0;
+    }
 }

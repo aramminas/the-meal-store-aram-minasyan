@@ -3,9 +3,9 @@ async function getFavorite(id) {
 }
 
 async function showFavorites() {
-  const favoritMeals = JSON.parse(localStorage.getItem("favoritMeals")) || [];
-  if (favoritMeals.length) {
-    const favoritesList = favoritMeals.map((favorite) => {
+  const favoriteMeals = JSON.parse(localStorage.getItem("favoriteMeals")) || [];
+  if (favoriteMeals.length) {
+    const favoritesList = favoriteMeals.map((favorite) => {
       return getFavorite(favorite);
     });
 
@@ -13,6 +13,7 @@ async function showFavorites() {
 
     // set main title
     setMainCategoryTitle("Favorites list");
+    document.body.classList.add("favorite-page");
     // create meal node and append to list
     const mealsContainer = document.querySelector(".meals-container");
     mealsContainer.innerHTML = "";
